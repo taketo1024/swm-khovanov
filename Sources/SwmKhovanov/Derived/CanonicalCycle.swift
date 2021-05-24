@@ -5,8 +5,9 @@
 //  Created by Taketo Sano on 2019/10/11.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmKnots
+import SwmHomology
 
 extension KhovanovComplex {
     private enum CanonicalCycleColor {

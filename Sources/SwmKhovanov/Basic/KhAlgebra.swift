@@ -5,7 +5,7 @@
 //  Created by Taketo Sano on 2021/05/04.
 //
 
-import SwiftyMath
+import SwmCore
 
 // The defining Frobenius algebra:
 // A = R[X]/(X^2 - hX - t) = R[X]/(X - u)(X - v)

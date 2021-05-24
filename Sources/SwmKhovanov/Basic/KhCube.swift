@@ -5,8 +5,9 @@
 //  Created by Taketo Sano on 2018/06/06.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmKnots
+import SwmHomology
 
 // An n-dim cube with Modules on all vertices I ∈ {0, 1}^n .
 

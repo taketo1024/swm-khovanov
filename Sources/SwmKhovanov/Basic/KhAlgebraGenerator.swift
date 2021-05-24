@@ -5,8 +5,8 @@
 //  Created by Taketo Sano on 2021/05/08.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmHomology
 
 public enum KhovanovAlgebraGenerator: Int8, LinearCombinationGenerator, Codable {
     case I = 0

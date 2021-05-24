@@ -5,8 +5,8 @@
 //  Created by Taketo Sano on 2021/05/07.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmHomology
 
 public protocol Cube {
     associatedtype Vertex

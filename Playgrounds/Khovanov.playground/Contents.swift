@@ -1,6 +1,6 @@
-import SwiftyMath
-import SwiftyHomology
-import SwiftyKnots
+import SwmCore
+import SwmHomology
+import SwmKnots
 
 // see: Knot Table http://katlas.org/wiki/The_Rolfsen_Knot_Table
 let PDCodes = [

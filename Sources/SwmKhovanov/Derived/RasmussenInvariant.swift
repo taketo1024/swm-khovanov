@@ -5,8 +5,9 @@
 //  Created by Taketo Sano on 2019/05/31.
 //
 
-import SwiftyMath
-import SwiftyHomology
+import SwmCore
+import SwmKnots
+import SwmHomology
 
 public func RasmussenInvariant(_ L: Link) -> Int {
     RasmussenInvariant(L, 𝐐.self)
