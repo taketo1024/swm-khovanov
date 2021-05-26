@@ -19,6 +19,9 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
     public let type: KhovanovAlgebra<R>
     public let link: Link
     
+    private let vertexCache: Cache<Coords, VertexInfo> = .empty
+    private let   edgeCache: Cache<Coords, Edge>       = .empty
+
     public init(type: KhovanovAlgebra<R>, link L: Link) {
         self.type = type
         self.link = L
@@ -34,7 +37,9 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
     
     private func vertexInfo(_ s: Coords) -> VertexInfo {
         assert(s.length == dim)
-        return VertexInfo(link, s)
+        return vertexCache.getOrSet(key: s) {
+            VertexInfo(link, s)
+        }
     }
     
     public var maxQdegree: Int {
@@ -74,11 +79,13 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
     }
     
     public func edge(from s0: Coords, to s1: Coords) -> ModuleEnd<BaseModule> {
-        switch self.edgeDescription(from: s0, to: s1) {
-        case let .merge(from: (i1, i2), to: j):
-            return MultiTensorHom(from: type.product, inputIndices: (i1, i2), outputIndex: j)
-        case let .split(from: i, to: (j1, j2)):
-            return MultiTensorHom(from: type.coproduct, inputIndex: i, outputIndices: (j1, j2))
+        edgeCache.getOrSet(key: s0.concat(with: s1)) {
+            switch self.edgeDescription(from: s0, to: s1) {
+            case let .merge(from: (i1, i2), to: j):
+                return MultiTensorHom(from: type.product, inputIndices: (i1, i2), outputIndex: j)
+            case let .split(from: i, to: (j1, j2)):
+                return MultiTensorHom(from: type.coproduct, inputIndex: i, outputIndices: (j1, j2))
+            }
         }
     }
     

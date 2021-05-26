@@ -42,14 +42,13 @@ public protocol ModuleCube: Cube where Vertex == ModuleStructure<BaseModule>, Ed
 
 extension ModuleCube {
     func edgeSign(from v: Coords, to w: Coords) -> R {
-        assert(v.length == dim)
-        assert(w.length == dim)
-        
-        guard let i = (0 ..< dim).first(where: { j in v[j] != w[j] }) else {
-            fatalError("invalid states: \(v), \(w)")
+        zip(v, w).reduce(
+            into: 0,
+            while: { (_, pair) in pair.0 == pair.1 }
+        ) { (res, pair) in
+            if pair.0 == 1 { res += 1 }
         }
-        let e = (0 ... i).count{ j in v[j] == 1 }
-        return e.isEven ? .identity : -.identity
+        .isEven ? .identity : -.identity
     }
     
     public func differential(_ i: Int) -> ModuleEnd<M> {
