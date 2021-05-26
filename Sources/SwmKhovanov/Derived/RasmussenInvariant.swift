@@ -32,11 +32,11 @@ public func RasmussenInvariant<F: Field>(_ L: Link, _ type: F.Type) -> Int {
         let FC0 = C[ 0].filter{ summand in summand.generator.qDegree < j }
         let FC1 = C[-1].filter{ summand in summand.generator.qDegree < j }
 
-        let A = d.asMatrix(from: FC1, to: FC0)
+        let A: AnySizeMatrix<F> = d.asMatrix(from: FC1, to: FC0)
         let b = FC0.vectorize(z)
 
         let E = A.eliminate(form: .Diagonal)
-        if let x = E.invert(b) {
+        if let x = E.solve(b) {
             assert(A * x == b)
         } else {
             return j + qShift - 1

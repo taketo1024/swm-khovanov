@@ -1,6 +1,7 @@
 import SwmCore
 import SwmHomology
 import SwmKnots
+import SwmKhovanov
 
 // see: Knot Table http://katlas.org/wiki/The_Rolfsen_Knot_Table
 let PDCodes = [
