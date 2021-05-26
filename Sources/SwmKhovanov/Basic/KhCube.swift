@@ -80,11 +80,12 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
     
     public func edge(from s0: Coords, to s1: Coords) -> ModuleEnd<BaseModule> {
         edgeCache.getOrSet(key: s0.concat(with: s1)) {
+            let e = edgeSign(from: s0, to: s1)
             switch self.edgeDescription(from: s0, to: s1) {
             case let .merge(from: (i1, i2), to: j):
-                return MultiTensorHom(from: type.product, inputIndices: (i1, i2), outputIndex: j)
+                return e * MultiTensorHom(from: type.product, inputIndices: (i1, i2), outputIndex: j)
             case let .split(from: i, to: (j1, j2)):
-                return MultiTensorHom(from: type.coproduct, inputIndex: i, outputIndices: (j1, j2))
+                return e * MultiTensorHom(from: type.coproduct, inputIndex: i, outputIndices: (j1, j2))
             }
         }
     }

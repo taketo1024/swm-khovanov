@@ -55,9 +55,8 @@ extension ModuleCube {
         ModuleEnd { (z: M) in
             z.elements.sum { (v, x) in
                 v.successors.sum { w in
-                    let e = edgeSign(from: v, to: w)
                     let f = edge(from: v, to: w)
-                    let y = e * f(x)
+                    let y = f(x)
                     return M(index: w, value: y)
                 }
             }
