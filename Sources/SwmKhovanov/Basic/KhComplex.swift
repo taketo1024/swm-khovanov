@@ -66,6 +66,22 @@ public struct KhovanovComplex<R: Ring>: ChainComplexType {
         return normalized ? n⁺ - 2 * n⁻ : 0
     }
     
+    public func qDegree(of z: BaseModule) -> Int {
+        z.elements.map { (v, z) -> Int in
+            qDegree(of: z, at: v)
+        }.min() ?? 0
+    }
+
+    public func qDegree(of z: BaseModule.BaseModule, at v: Cube.Coords) -> Int {
+        z.elements.map { (x, r) in
+            qDegree(of: x, at: v) + r.degree
+        }.min() ?? 0
+    }
+
+    public func qDegree(of x: BaseModule.BaseModule.Generator, at v: Cube.Coords) -> Int {
+        v.weight + x.degree + x.factors.count + qDegreeShift
+    }
+
     public func printSequence() {
         self.printSequence(degreeRange)
     }
@@ -76,7 +92,7 @@ public struct KhovanovComplex<R: Ring>: ChainComplexType {
         assert(t.isZero || t.degree == -4)
         
         return chainComplex.asBigraded {
-            summand in summand.generator.qDegree
-        }.shifted(0, qDegreeShift)
+            summand in qDegree(of: summand.generator)
+        }
     }
 }

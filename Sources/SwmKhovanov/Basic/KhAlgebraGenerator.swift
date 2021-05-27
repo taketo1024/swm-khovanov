@@ -24,13 +24,3 @@ public enum KhovanovAlgebraGenerator: Int8, LinearCombinationGenerator, Codable 
         (self == .I) ? "1" : "X"
     }
 }
-
-extension GradedModule where Index == Cube.Coords, BaseModule: LinearCombinationType, BaseModule.Generator == MultiTensorGenerator<KhovanovAlgebraGenerator> {
-    public var qDegree: Int {
-        elements.map { (v, z) -> Int in
-            z.elements.map { (x, r) -> Int in
-                v.weight + r.degree + x.degree + x.factors.count
-            }.min() ?? 0
-        }.min() ?? 0
-    }
-}
