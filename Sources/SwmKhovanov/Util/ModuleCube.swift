@@ -41,7 +41,7 @@ public protocol ModuleCube: Cube where Vertex == ModuleStructure<BaseModule>, Ed
 }
 
 extension ModuleCube {
-    func edgeSign(from v: Coords, to w: Coords) -> R {
+    public func edgeSign(from v: Coords, to w: Coords) -> R {
         zip(v, w).reduce(
             into: 0,
             while: { (_, pair) in pair.0 == pair.1 }
