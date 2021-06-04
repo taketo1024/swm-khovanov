@@ -14,19 +14,19 @@ let package = Package(
     dependencies: [
         .package(
 			url: "https://github.com/taketo1024/swm-core.git",
-			from:"1.1.0"
+			from:"1.2.1"
 //            path: "../swm-core/"
 		),
         .package(
             url: "https://github.com/taketo1024/swm-knots.git",
-            from: "1.0.0"
+            from: "1.1.0"
 //            path: "../swm-knots/"
         ),
         .package(
-			url: "https://github.com/taketo1024/swm-homology.git",
-			from: "1.1.0"
+            url: "https://github.com/taketo1024/swm-homology.git",
+            from: "1.2.0"
 //            path: "../swm-homology/"
-		),
+        ),
     ],
     targets: [
         .target(
