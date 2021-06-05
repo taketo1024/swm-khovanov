@@ -9,7 +9,7 @@ import SwmCore
 import SwmKnots
 import SwmHomology
 
-public struct KhovanovHomology<R: EuclideanRing>: GradedModuleStructureType {
+public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureType {
     public typealias BaseGrid = ModuleGrid2<KhovanovComplex<R>.BaseModule>
     public typealias BaseModule = BaseGrid.BaseModule
     public typealias Index  = BaseGrid.Index
