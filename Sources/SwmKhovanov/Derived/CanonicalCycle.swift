@@ -65,7 +65,7 @@ extension KhovanovComplex {
             let cs = xs.map{ x -> Circle in
                 let e = x.edges.first{ e in !circle.edges.contains(e) }!
                 return circles.first{ c1 in c1.edges.contains(e) }!
-            }.unique()
+            }.uniqued()
 
             // queue circles with opposite color.
             for c1 in cs where !result.contains(key: c1) {

@@ -43,6 +43,10 @@ public struct KhovanovComplex<R: Ring>: ChainComplexType {
         chainComplex[i]
     }
     
+    public var support: [Int] {
+        degreeRange.toArray()
+    }
+    
     public var differential: Differential {
         ChainMap( chainComplex.differential )
     }
@@ -82,10 +86,6 @@ public struct KhovanovComplex<R: Ring>: ChainComplexType {
         v.weight + x.degree + x.factors.count + qDegreeShift
     }
 
-    public func printSequence() {
-        self.printSequence(degreeRange)
-    }
-    
     internal var asBigraded: ChainComplex2<BaseModule> {
         let (h, t) = (type.h, type.t)
         assert(h.isZero || h.degree == -2)

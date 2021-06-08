@@ -37,6 +37,13 @@ public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureTy
         .init(grid.shifted(shift), chainComplex)
     }
     
+    public var support: [Index] {
+        let r1 = chainComplex.degreeRange
+        let qMin = chainComplex.qDegreeRange.lowerBound
+        let r2 = chainComplex.qDegreeRange.filter{ ($0 - qMin).isEven }
+        return (r1 * r2).map { (i, j) in [i, j] }
+    }
+    
     // Σ_{i, j} (-1)^i q^j rank(H[i, j])
     public var gradedEulerCharacteristic: LaurentPolynomial<𝐙, _q> {
         let (r1, r2) = (chainComplex.degreeRange, chainComplex.qDegreeRange)
@@ -47,11 +54,5 @@ public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureTy
         return (r1 * r2).sum { (i, j) -> P in
             P((-1).pow(i) * self[i, j].rank) * q.pow(j)
         }
-    }
-    
-    public func printTable() {
-        let (r1, r2) = (chainComplex.degreeRange, chainComplex.qDegreeRange)
-        let qMin = r2.lowerBound
-        grid.printTable(r1, r2.filter{ j in (j - qMin).isEven})
     }
 }
