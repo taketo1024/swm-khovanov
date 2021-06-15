@@ -72,8 +72,10 @@ extension ModuleCube {
                 }
                 
                 let vs = Coords.sequences(length: dim, weight: i)
-                let modules = Dictionary(keys: vs) { self[$0] }
-                return ModuleStructure.formDirectSum(modules)
+                return ModuleStructure.formDirectSum(
+                    indices: vs,
+                    objects: vs.map{ self[$0] }
+                )
             },
             degree: 1,
             differential: { i in self.differential(i) }

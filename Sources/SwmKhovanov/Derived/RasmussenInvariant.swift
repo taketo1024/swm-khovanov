@@ -6,20 +6,20 @@
 //
 
 import SwmCore
+import SwmMatrixTools
 import SwmKnots
-import SwmHomology
 
 public func RasmussenInvariant(_ L: Link) -> Int {
     RasmussenInvariant(L, 𝐐.self)
 }
 
-public func RasmussenInvariant<F: Field>(_ L: Link, _ type: F.Type) -> Int {
+public func RasmussenInvariant<F>(_ L: Link, _ type: F.Type) -> Int where F: ComputationalField {
     if L.components.count == 0 {
         return 0
     }
 
     typealias CKh = KhovanovComplex<F>
-    
+
     let C = CKh(type: .Lee, link: L)
     let q = C.qDegree(of:)
     let z = C.canonicalCycles.0
@@ -36,10 +36,12 @@ public func RasmussenInvariant<F: Field>(_ L: Link, _ type: F.Type) -> Int {
             z.filterTerms { (v, z) in C.qDegree(of: z, at: v) < j }
         }
         
-        let A: AnySizeMatrix<F> = (p ∘ d).asMatrix(from: FC1, to: FC0)
-        let b = FC0.vectorize(p(z))!
+        typealias M = F.ComputationalSparseMatrix<anySize, anySize>
+        
+        let A = (p ∘ d).asMatrix(from: FC1, to: FC0, ofType: M.self)
+        let b = FC0.vectorize(p(z))!.convert(to: M.self)
 
-        let E = A.eliminate(form: .Diagonal)
+        let E = A.LUfactorize()
         if let x = E.solve(b) {
             assert(A * x == b)
         } else {
