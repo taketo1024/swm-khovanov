@@ -37,7 +37,7 @@ extension Cube {
 public protocol ModuleCube: Cube where Vertex == ModuleStructure<BaseModule>, Edge == ModuleEnd<BaseModule> {
     associatedtype BaseModule: Module
     typealias R = BaseModule.BaseRing
-    typealias M = GradedModule<Coords, BaseModule>
+    typealias M = IndexedModule<Coords, BaseModule>
 }
 
 extension ModuleCube {

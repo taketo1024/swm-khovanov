@@ -11,7 +11,7 @@ import SwmHomology
 
 public struct KhovanovComplex<R: Ring>: ChainComplexType {
     public typealias Index = Int
-    public typealias BaseModule = GradedModule<
+    public typealias BaseModule = IndexedModule<
         Cube.Coords,
         LinearCombination<R, MultiTensorGenerator<KhovanovAlgebraGenerator>>
     >

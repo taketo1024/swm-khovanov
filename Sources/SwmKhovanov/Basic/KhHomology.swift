@@ -9,16 +9,16 @@ import SwmCore
 import SwmKnots
 import SwmHomology
 
-public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureType {
-    public typealias BaseGrid = ModuleGrid2<KhovanovComplex<R>.BaseModule>
-    public typealias BaseModule = BaseGrid.BaseModule
-    public typealias Index  = BaseGrid.Index
-    public typealias Object = BaseGrid.Object
-    
-    public let grid: BaseGrid
+public struct KhovanovHomology<R: HomologyCalculatable>: IndexedModuleStructureType {
+    public typealias BaseModule = KhovanovComplex<R>.BaseModule
+    public typealias Index  = MultiIndex<_2>
+    public typealias Object = ModuleStructure<BaseModule>
+    public typealias Grid = IndexedModuleStructure<Index, BaseModule>
+
+    public let grid: Grid
     public let chainComplex: KhovanovComplex<R>
     
-    private init(_ grid: BaseGrid, _ chainComplex: KhovanovComplex<R>) {
+    private init(_ grid: Grid, _ chainComplex: KhovanovComplex<R>) {
         self.grid = grid
         self.chainComplex = chainComplex
     }
@@ -29,7 +29,7 @@ public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureTy
         self.init(H, C)
     }
     
-    public subscript(i: Index) -> BaseGrid.Object {
+    public subscript(i: Index) -> Grid.Object {
         grid[i]
     }
 
