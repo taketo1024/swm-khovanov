@@ -65,6 +65,7 @@ extension ModuleCube {
     
     public func asChainComplex() -> ChainComplex1<M> {
         ChainComplex1(
+            support: Array(0 ... dim),
             grid: { i in
                 let n = self.dim
                 guard (0 ... n).contains(i) else {
