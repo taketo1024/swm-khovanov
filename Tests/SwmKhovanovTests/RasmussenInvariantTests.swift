@@ -8,7 +8,11 @@
 import XCTest
 import SwmCore
 import SwmKnots
+import SwmHomology
+
 @testable import SwmKhovanov
+
+extension RationalNumber: HomologyCalculatable{}
 
 class RasmussenInvariantTests: XCTestCase {
     

@@ -13,7 +13,7 @@ public func RasmussenInvariant(_ L: Link) -> Int {
     RasmussenInvariant(L, 𝐐.self)
 }
 
-public func RasmussenInvariant<F>(_ L: Link, _ type: F.Type) -> Int where F: ComputationalField {
+public func RasmussenInvariant<F>(_ L: Link, _ type: F.Type) -> Int where F: Field & ComputationalRing {
     if L.components.count == 0 {
         return 0
     }
@@ -36,7 +36,7 @@ public func RasmussenInvariant<F>(_ L: Link, _ type: F.Type) -> Int where F: Com
             z.filterTerms { (v, z) in C.qDegree(of: z, at: v) < j }
         }
         
-        typealias M = F.ComputationalSparseMatrix<anySize, anySize>
+        typealias M = DefaultSparseMatrix<F, anySize, anySize>
         
         let A = (p ∘ d).asMatrix(from: FC1, to: FC0, ofType: M.self)
         let b = FC0.vectorize(p(z))!.convert(to: M.self)
