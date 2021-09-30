@@ -9,7 +9,10 @@ import XCTest
 import SwmCore
 import SwmKnots
 import SwmHomology
+
 @testable import SwmKhovanov
+
+extension Int: HomologyCalculatable {}
 
 class KhovanovHomologyTests: XCTestCase {
     

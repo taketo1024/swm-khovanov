@@ -9,11 +9,11 @@ import SwmCore
 import SwmKnots
 import SwmHomology
 
-public struct KhovanovHomology<R: HomologyCalculatable>: IndexedModuleStructureType {
+public struct KhovanovHomology<R: HomologyCalculatable>: GradedModuleStructureType {
     public typealias BaseModule = KhovanovComplex<R>.BaseModule
-    public typealias Index  = MultiIndex<_2>
+    public typealias Index  = IntList<_2>
     public typealias Object = ModuleStructure<BaseModule>
-    public typealias Grid = IndexedModuleStructure<Index, BaseModule>
+    public typealias Grid = GradedModuleStructure<Index, BaseModule>
 
     public let grid: Grid
     public let chainComplex: KhovanovComplex<R>
