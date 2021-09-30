@@ -36,10 +36,11 @@ public func RasmussenInvariant<F>(_ L: Link, _ type: F.Type) -> Int where F: Fie
             z.filterTerms { (v, z) in C.qDegree(of: z, at: v) < j }
         }
         
-        typealias M = DefaultSparseMatrix<F, anySize, anySize>
-        
+        typealias M = SparseMatrix<F, anySize, anySize>
+        typealias V = SparseVector<F, anySize>
+
         let A = (p ∘ d).asMatrix(from: FC1, to: FC0, ofType: M.self)
-        let b = FC0.vectorize(p(z))!.convert(to: M.self)
+        let b = FC0.vectorize(p(z), V.self)!
 
         let E = A.LUfactorize()
         if let x = E.solve(b) {

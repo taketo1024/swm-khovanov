@@ -20,25 +20,23 @@ extension ModuleStructure {
             obj.generators.map { x in IndexedModule(index: index, value: x) }
         }
         
-        let N = ranks.last ?? 0
         let vectorizer: S.Vectorizer = { z in
-            var valid = true
-            let vec = AnySizeVector<R>(size: N) { setEntry in
-                for (index, x) in z.elements {
-                    guard let i = indexer(index),
-                          let v = objects[i].vectorize(x)
-                    else {
-                        valid = false
-                        break
-                    }
-                    
-                    let shift = ranks[i]
-                    v.nonZeroColEntries.forEach { (i, a) in
-                        setEntry(i + shift, a)
-                    }
+            var v: [ColEntry<R>] = []
+            
+            for (index, x) in z.elements {
+                guard let k = indexer(index),
+                      let w = objects[k].vectorEntries(x)
+                else {
+                    return nil
                 }
+                
+                let shift = ranks[k]
+                v.append(contentsOf: w.map{ (i, a) in
+                    (i + shift, a)
+                })
             }
-            return valid ? vec : nil
+            
+            return v
         }
         
         return S(
