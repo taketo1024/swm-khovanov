@@ -35,7 +35,7 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
         vertexInfo(v).module
     }
     
-    private func vertexInfo(_ s: Coords) -> VertexInfo {
+    public func vertexInfo(_ s: Coords) -> VertexInfo {
         assert(s.length == dim)
         return vertexCache.getOrSet(key: s) {
             VertexInfo(link, s)
@@ -90,10 +90,10 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
         }
     }
     
-    fileprivate struct VertexInfo {
-        let coords: Coords
-        let circles: [Link.Component]
-        let module: ModuleStructure<BaseModule>
+    public struct VertexInfo {
+        public let coords: Coords
+        public let circles: [Link.Component]
+        public let module: ModuleStructure<BaseModule>
         
         init(_ L: Link, _ v: Coords) {
             let circles = L.resolved(by: v).components
@@ -101,7 +101,7 @@ public struct KhovanovCube<R: Ring>: ModuleCube {
             let r = circles.count
             let (I, X) = (KhovanovAlgebraGenerator.I, KhovanovAlgebraGenerator.X)
             let generators = BitSequence.allSequences(length: r).map { b in
-                MultiTensorGenerator( b.map { $0 == 0 ? I : X } )
+                MultiTensorGenerator( b.map { $0 == 0 ? X : I } )
             }
             
             self.coords = v
