@@ -19,7 +19,7 @@ let package = Package(
 		),
         .package(
             url: "https://github.com/taketo1024/swm-knots.git",
-            from: "1.3.0"
+            from: "1.3.1"
 //            path: "../swm-knots/"
         ),
         .package(
